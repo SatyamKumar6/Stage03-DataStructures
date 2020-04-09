@@ -25,7 +25,7 @@ public class Solution {
                 }
             }
         }
-return max;
+	return max;
     }
 
     private static final Scanner scanner = new Scanner(System.in);

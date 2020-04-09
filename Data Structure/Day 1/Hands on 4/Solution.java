@@ -1,43 +1,73 @@
 import java.io.*;
-import java.util.*;
-import java.text.*;
 import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
 import java.util.regex.*;
+
 public class Solution {
 
-public static void main(String[] args) {
-   Scanner sc=new Scanner(System.in); 
-      int n=sc.nextInt();
-      String []s=new String[n];   
-      int count=0;
-     for(int i=0;i<n;i++)
-        {
-          sc.nextLine();
-           s[i]=sc.next();
-        }   
-    int n1=sc.nextInt();
-    String[] s1=new String[n1];
-    for(int j=0;j<n1;j++)
-        {
-           sc.nextLine();
-           s1[j]=sc.next();  
-      }
-   for(int i=0;i<n1;i++)
+    // Complete the matchingStrings function below.
+    static int[] matchingStrings(String[] strings, String[] queries) {
+
+        int[] result = new int[queries.length];
+
+        for(int i=0;i<queries.length;i++)
        {
-          count=0;
-          for(int j=0;j<n;j++)
+          int count=0;
+          for(int j=0;j<strings.length;j++)
               {
-                 if((s[j].equals(s1[i])))
+                 if((strings[j].equals(queries[i])))
                      {
                      count++;
                     }
 
               }
-         System.out.println(count);
+         result[i]=count;
       }
+    return result;
+    }
 
+    private static final Scanner scanner = new Scanner(System.in);
 
-	}
+    public static void main(String[] args) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
+        int stringsCount = scanner.nextInt();
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
+        String[] strings = new String[stringsCount];
+
+        for (int i = 0; i < stringsCount; i++) {
+            String stringsItem = scanner.nextLine();
+            strings[i] = stringsItem;
+        }
+
+        int queriesCount = scanner.nextInt();
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+        String[] queries = new String[queriesCount];
+
+        for (int i = 0; i < queriesCount; i++) {
+            String queriesItem = scanner.nextLine();
+            queries[i] = queriesItem;
+        }
+
+        int[] res = matchingStrings(strings, queries);
+
+        for (int i = 0; i < res.length; i++) {
+            bufferedWriter.write(String.valueOf(res[i]));
+
+            if (i != res.length - 1) {
+                bufferedWriter.write("\n");
+            }
+        }
+
+        bufferedWriter.newLine();
+
+        bufferedWriter.close();
+
+        scanner.close();
+    }
 }
